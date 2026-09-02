@@ -1,54 +1,32 @@
-// ========================================
-// DATA SLIDE
-// ========================================
-
 const slides = document.querySelectorAll(".slide");
 const slideNumber = document.getElementById("slideNumber");
 
 let currentSlide = 0;
 
 
-// ========================================
-// MENAMPILKAN SLIDE
-// ========================================
-
+// Menampilkan slide
 function showSlide(index) {
 
-    // Jika melewati slide terakhir
     if (index >= slides.length) {
         currentSlide = slides.length - 1;
-    }
-
-    // Jika kembali sebelum slide pertama
-    else if (index < 0) {
+    } else if (index < 0) {
         currentSlide = 0;
-    }
-
-    else {
+    } else {
         currentSlide = index;
     }
 
-
-    // Menonaktifkan semua slide
     slides.forEach((slide) => {
         slide.classList.remove("active");
     });
 
-
-    // Mengaktifkan slide yang dipilih
     slides[currentSlide].classList.add("active");
 
-
-    // Mengubah nomor slide
     slideNumber.textContent =
         `${currentSlide + 1} / ${slides.length}`;
 }
 
 
-// ========================================
-// SLIDE BERIKUTNYA
-// ========================================
-
+// Slide berikutnya
 function nextSlide() {
 
     if (currentSlide < slides.length - 1) {
@@ -58,10 +36,7 @@ function nextSlide() {
 }
 
 
-// ========================================
-// SLIDE SEBELUMNYA
-// ========================================
-
+// Slide sebelumnya
 function previousSlide() {
 
     if (currentSlide > 0) {
@@ -71,36 +46,35 @@ function previousSlide() {
 }
 
 
-// ========================================
-// LANGSUNG KE SLIDE TERTENTU
-// ========================================
-
+// Pergi ke slide tertentu
 function goToSlide(index) {
     showSlide(index);
 }
 
 
-// ========================================
-// KEYBOARD NAVIGATION
-// ========================================
-
+// Keyboard
 document.addEventListener("keydown", function(event) {
 
-    // Tombol panah kanan
     if (event.key === "ArrowRight") {
         nextSlide();
     }
 
-    // Tombol panah kiri
     if (event.key === "ArrowLeft") {
         previousSlide();
+    }
+
+    // Tombol Home kembali ke slide pertama
+    if (event.key === "Home") {
+        goToSlide(0);
+    }
+
+    // Tombol End menuju slide terakhir
+    if (event.key === "End") {
+        goToSlide(slides.length - 1);
     }
 
 });
 
 
-// ========================================
-// INISIALISASI
-// ========================================
-
+// Jalankan slide pertama
 showSlide(0);
